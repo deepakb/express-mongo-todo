@@ -1,0 +1,36 @@
+{
+  "name": "todo",
+  "version": "0.0.1",
+  "description": "A todo application build with express and mongo",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon ./app.js APP_ENV=development",
+    "prod": "node ./app.js APP_ENV=production"
+  },
+  "keywords": [
+    "express",
+    "mongo",
+    "rest-api"
+  ],
+  "author": "Deepak Biswal",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "command-line-args": "^5.1.1",
+    "dotenv": "^8.2.0",
+    "errorhandler": "^1.5.1",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.18"
+  },
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1"
+  }
+}
