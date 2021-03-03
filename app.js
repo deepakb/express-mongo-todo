@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const commandLineArgs = require('command-line-args');
 const errorHandler = require('errorhandler');
+const mongoose = require('mongoose');
 require('dotenv').config();
 
 const routes = require('./routes');
