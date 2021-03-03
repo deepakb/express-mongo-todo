@@ -4,6 +4,7 @@ const commandLineArgs = require('command-line-args');
 const errorHandler = require('errorhandler');
 const mongoose = require('mongoose');
 require('dotenv').config();
+require('./models/User');
 
 const routes = require('./routes');
 
@@ -41,6 +42,13 @@ mongoose.connect(
     : process.env.LOCAL_MONGO_CLUSTER,
   mongoCloudConnectionSetting
 );
+
+mongoose.connection.on('connected', () => {
+  console.log('Connected to mongo instance');
+});
+mongoose.connection.on('error', (err) => {
+  console.log(`Error connecting to mongo: ${err}`);
+});
 
 // Use routes
 app.use(routes);
