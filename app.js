@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 require('dotenv').config();
 
 const logger = require('./config/logger');
@@ -21,6 +22,7 @@ const app = express();
 // Config defaults...
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(morgan('combined'));
 
 // Connect to DB
 const mongoCloudConnectionSetting = {
@@ -49,11 +51,7 @@ mongoose.connection.on('error', (err) => {
   if (err) logger.log('error', { message: err.message });
 });
 
-app.use((req, res, next) => {
-  console.log('Request Type:', req.method);
-  console.log('Time:', Date.now());
-  return next();
-});
+// TODO: Use some logger mechanism
 
 // Use routes
 app.use(routes);
