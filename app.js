@@ -1,13 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const errorHandler = require('errorhandler');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
 const logger = require('./config/logger');
 const environment = require('./utils/env');
 const notFound = require('./middleware/not-found');
-const errorHelper = require('./middleware/error-handler');
+const errorHelper = require('./middleware/error-helper');
 
 require('./models/User');
 
@@ -22,8 +21,6 @@ const app = express();
 // Config defaults...
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-if (!isProduction) app.use(errorHandler());
 
 // Connect to DB
 const mongoCloudConnectionSetting = {
@@ -52,12 +49,21 @@ mongoose.connection.on('error', (err) => {
   if (err) logger.log('error', { message: err.message });
 });
 
+app.use((req, res, next) => {
+  console.log('Request Type:', req.method);
+  console.log('Time:', Date.now());
+  return next();
+});
+
 // Use routes
 app.use(routes);
 
 // Use middlewares
-app.use(notFound);
-app.use(errorHelper);
+app.use(
+  notFound,
+  errorHelper('api', isProduction),
+  errorHelper('all', isProduction)
+);
 
 // Access the server by listening to the defined port
 app.listen(PORT, () => {
