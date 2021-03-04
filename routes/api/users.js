@@ -13,8 +13,6 @@ router.post('/users', (req, res, next) => {
   user.hash = hash;
   user.salt = salt;
 
-  throw new Error('Hello Error');
-
   user
     .save()
     .then(() => res.json({ user }))

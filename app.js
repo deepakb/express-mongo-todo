@@ -6,13 +6,12 @@ require('dotenv').config();
 
 const logger = require('./config/logger');
 const environment = require('./utils/env');
+const notFound = require('./middleware/not-found');
+const errorHelper = require('./middleware/error-handler');
 
 require('./models/User');
 
 const routes = require('./routes');
-
-const notFound = require('./middleware/not-found');
-const errorHelper = require('./middleware/error-handler');
 
 const PORT = process.env.PORT || 3000;
 const isProduction = environment === 'production';
